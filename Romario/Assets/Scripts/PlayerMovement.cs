@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField] private float moveSpeed = 40;
+    public float moveSpeed = 40;
     private Animator animator;
     private CharacterController2D controller;
     
@@ -26,15 +26,23 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            
             jump = true;           
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space) && controller.WasGrounded == true)
+        {
+            FindAnyObjectByType<AudioManager>().Play("Jump");
         }
 
         if(controller.WasGrounded == true)
         {
+            
             animator.SetBool("IsJumping", false);
         }
         else
         {
+            
             animator.SetBool("IsJumping", true);
         }
         
